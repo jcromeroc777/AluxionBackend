@@ -17,9 +17,14 @@ const info = {
                 "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
             },
             "version": "1.0.1"
-        }
+        },
+        servers: [
+            {
+                url: "http://localhost:8080"
+            }
+        ]
     },
-    "apis": [`${path.join(__dirname, "./routes/*.js")}`]
+    "apis": [`${path.join(__dirname, "../routes/*.js")}`]
 };
 
 export default info;
