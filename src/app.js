@@ -7,7 +7,10 @@ import swaggerUI from 'swagger-ui-express';
 import swaggerJsDoc from 'swagger-jsdoc';
 import info from './docs/basicInfo';
 
+import fileUpload from 'express-fileupload';
+
 import authRoutes from './routes/auth';
+import fileRoutes from './routes/file';
 
 // Middlewares
 const corsOptions = {
@@ -21,11 +24,13 @@ app.use(helmet());
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(fileUpload({ useTempFiles:true, tempFileDir:"/tmp" }));
 
 // swagger
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerJsDoc(info))); 
 
 // app
 app.use("/api/auth", authRoutes);
+app.use("/api/file", fileRoutes);
 
 export default app;
