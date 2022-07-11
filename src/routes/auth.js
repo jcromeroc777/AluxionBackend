@@ -1,7 +1,7 @@
 import { Router } from 'express';
 const { body, param } = require('express-validator');
 import * as authController from '../controllers/auth.controller';
-import { verifyToken, verifyTokenEmail } from '../middlewares';
+import { verifyTokenEmail } from '../middlewares';
 
 
 const router = Router();

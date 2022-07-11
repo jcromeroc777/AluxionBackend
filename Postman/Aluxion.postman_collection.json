@@ -1,0 +1,387 @@
+{
+	"info": {
+		"_postman_id": "a07700e6-11ae-46f5-85ff-a21597c8ec36",
+		"name": "Aluxion",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3045257"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "SignUp",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"jcromeroc.19@gmail.com\",\n    \"password\": \"1234\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/auth/signUp",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"auth",
+								"signUp"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SignIn",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"var data = JSON.parse(responseBody);",
+									"pm.environment.set(\"token\", data.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"jcromeroc.19@gmail.com\",\n    \"password\": \"12345\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/auth/signIn",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"auth",
+								"signIn"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RequestChangePassword",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/auth/requestChangePassword/jcromeroc.19@gmail.com",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"auth",
+								"requestChangePassword",
+								"jcromeroc.19@gmail.com"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ChangePassword",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYzljYTZhNzVmNzdiYWExMGQzOTQ1YSIsImlhdCI6MTY1NzQwMjA5OSwiZXhwIjoxNjU3NDg4NDk5fQ.WHLl9HFv38TT6fh1a99p6GFUffNfvfdA2S4ms-u0Hls",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/auth/changePassword/54321",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"auth",
+								"changePassword",
+								"54321"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "File",
+			"item": [
+				{
+					"name": "UploadFile",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/Users/macbook/Desktop/deathstroke.jpeg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/file/uploadFile",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"file",
+								"uploadFile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DownloadFile",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/file/downloadFile/office-3.jpeg",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"file",
+								"downloadFile",
+								"office-3.jpeg"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListFiles",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/file/listFiles",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"file",
+								"listFiles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ManageFile",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"62ca2ba8b6a8fe8d040d7ae6\",\n    \"newName\": \"batman10.png\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/file/managerFile",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"file",
+								"managerFile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListImages",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"query\": \"office\",\n    \"page\": 1,\n    \"per_page\": 5\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/file/listImages",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"file",
+								"listImages"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UploadFromUrl",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"url\": \"https://images.unsplash.com/photo-1497215728101-856f4ea42174?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3NjEwM3wwfDF8c2VhcmNofDF8fG9mZmljZXxlbnwwfHx8fDE2NTc1MDIxODk&ixlib=rb-1.2.1&q=80&w=400\",\n    \"name\": \"office-3\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/file/uploadFromUrl",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"file",
+								"uploadFromUrl"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": "\"\"",
+			"type": "string",
+			"disabled": true
+		}
+	]
+}

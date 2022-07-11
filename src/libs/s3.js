@@ -22,7 +22,7 @@ const checkConection = () => {
     Bucket: process.env.BUCKET_AWS
   }, function(err, data) {
     if (err) console.log(err, err.stack); // an error occurred
-    else     console.log("success ", data);           // successful response
+    else console.log("success ", data);           // successful response
   });
 };
 
@@ -49,4 +49,29 @@ const getFileFromS3 = async (key) =>{
     return s3.getObject(downloadParams).createReadStream();
 };
 
-export { uploadToS3V2, getFileFromS3, checkConection }; 
+//manage file to s3 bucker
+const manageFile = async (key, newKey) => {
+    return await s3.copyObject({
+        Bucket: process.env.BUCKET_AWS, 
+        CopySource: `${process.env.BUCKET_AWS}/${key}`, 
+        Key: newKey
+    }).promise();
+
+    // await s3.deleteObject({
+    //     Bucket: process.env.BUCKET_AWS, 
+    //     Key: key
+    // }).promise();
+};
+
+//upload file to s3 bucker
+const uploadToS3V1 = async (file, name) => {
+    const params = {
+        ...constantParams,
+        Body:file,
+        Key:name
+    };
+
+    return await s3.upload(params).promise();
+};
+
+export { uploadToS3V2, getFileFromS3, checkConection, manageFile, uploadToS3V1 }; 
